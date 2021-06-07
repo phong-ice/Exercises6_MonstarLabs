@@ -37,7 +37,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.log
 
-class DiaryFragment : Fragment(),MyButtonClickListener {
+class DiaryFragment : Fragment(), MyButtonClickListener {
 
     companion object {
         const val NAME_FRAGMENT: String = "diary_fragment"
@@ -53,6 +53,7 @@ class DiaryFragment : Fragment(),MyButtonClickListener {
     }
     private var adapterListDiary: AdapterListDiary? = null
     private lateinit var listDiary: MutableList<Diary>
+    private var isSort = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,29 +88,46 @@ class DiaryFragment : Fragment(),MyButtonClickListener {
             }
         }
 
-        binding.edtSearch.addTextChangedListener(object :TextWatcher{
+        binding.btnSort.setOnClickListener {
+            isSort = when (isSort) {
+                false -> {
+                    listDiary.sortBy { SimpleDateFormat("d/M/yyyy").parse(it.dateDiary) }
+                    adapterListDiary?.notifyDataSetChanged()
+                    true
+                }
+                else -> {
+                    listDiary.sortByDescending { SimpleDateFormat("d/M/yyyy").parse(it.dateDiary) }
+                    adapterListDiary?.notifyDataSetChanged()
+                    false
+                }
+            }
+        }
+
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
                 when (s.toString()) {
-                    "" -> diaryViewModel.getAllDiary().observe(this@DiaryFragment, androidx.lifecycle.Observer {
-                        listDiary.clear()
-                        listDiary.addAll(it)
-                        adapterListDiary?.notifyDataSetChanged()
-                    })
-                    else -> diaryViewModel.selectDiaryByTitleOrContent(s.toString()).observe(this@DiaryFragment,
-                        androidx.lifecycle.Observer {
+                    "" -> diaryViewModel.getAllDiary()
+                        .observe(this@DiaryFragment, androidx.lifecycle.Observer {
                             listDiary.clear()
                             listDiary.addAll(it)
                             adapterListDiary?.notifyDataSetChanged()
                         })
+                    else -> diaryViewModel.selectDiaryByTitleOrContent(s.toString())
+                        .observe(this@DiaryFragment,
+                            androidx.lifecycle.Observer {
+                                listDiary.clear()
+                                listDiary.addAll(it)
+                                adapterListDiary?.notifyDataSetChanged()
+                            })
                 }
             }
 
         })
-        val itemTouchHelper:ItemTouchHelper.SimpleCallback = MySwipeHelper(this)
+        val itemTouchHelper: ItemTouchHelper.SimpleCallback = MySwipeHelper(this)
         ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding.lvDairy)
     }
 
@@ -122,7 +140,7 @@ class DiaryFragment : Fragment(),MyButtonClickListener {
             diaryViewModel.deleteDiary(diary)
             adapterListDiary?.notifyDataSetChanged()
         }
-        builder.setNegativeButton("Cancel"){dialog,which ->
+        builder.setNegativeButton("Cancel") { dialog, which ->
             adapterListDiary?.notifyDataSetChanged()
             dialog.dismiss()
         }

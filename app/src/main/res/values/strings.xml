@@ -13,4 +13,5 @@
     <string name="enter_your_name_file">Enter your name file</string>
     <string name="title_diary">Title diary</string>
     <string name="content_diary">Content diary</string>
+    <string name="sort">Sort by date</string>
 </resources>

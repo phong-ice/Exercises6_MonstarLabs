@@ -16,13 +16,13 @@ interface DiaryDao {
     @Delete
     fun deleteDiary(diary: Diary)
 
-    @Query("SELECT * FROM table_name_diary ORDER BY dateDiary DESC")
+    @Query("SELECT * FROM table_name_diary")
     fun getAllDiary():LiveData<MutableList<Diary>>
 
-    @Query("SELECT * FROM table_name_diary WHERE titleDiary LIKE :someThing OR contentDiary LIKE :someThing ORDER BY dateDiary")
+    @Query("SELECT * FROM table_name_diary WHERE titleDiary LIKE :someThing OR contentDiary LIKE :someThing")
     fun selectDiaryByTitleOrContent(someThing:String):LiveData<MutableList<Diary>>
 
-    @Query("SELECT * FROM table_name_diary WHERE dateDiary = :date ORDER BY dateDiary")
+    @Query("SELECT * FROM table_name_diary WHERE dateDiary = :date")
     fun getDiaryByDate(date:String):LiveData<MutableList<Diary>>
 
     @Query("DELETE FROM table_name_diary")
