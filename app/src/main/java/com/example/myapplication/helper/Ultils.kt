@@ -13,4 +13,7 @@ object Ultils {
     const val DIARY_TITLE = "diary_title"
     const val DIARY_CONTENT = "diary_content"
     const val DIARY_DATE = "diary_date"
+
+    const val KEY_SPACE = "&*%$*$"
+    const val NEW_LINE = "//a&^b*&/"
 }

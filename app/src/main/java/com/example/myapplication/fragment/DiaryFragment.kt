@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils.replace
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ import com.example.myapplication.adapter.AdapterListDiary
 import com.example.myapplication.callback.MyButtonClickListener
 import com.example.myapplication.databinding.FragmentDiaryBinding
 import com.example.myapplication.helper.MySwipeHelper
+import com.example.myapplication.helper.Ultils.NEW_LINE
 import com.example.myapplication.model.Diary
 import com.example.myapplication.repository.DiaryRepository
 import com.example.myapplication.viewmodel.DiaryViewModel
@@ -33,6 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.log
 
 class DiaryFragment : Fragment(),MyButtonClickListener {
 

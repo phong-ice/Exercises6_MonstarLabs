@@ -21,6 +21,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.ActivitySettingBinding
 import com.example.myapplication.databinding.LayoutDialogBackupBinding
 import com.example.myapplication.helper.RealPathUtil
+import com.example.myapplication.helper.Ultils.KEY_SPACE
+import com.example.myapplication.helper.Ultils.NEW_LINE
 import com.example.myapplication.model.Diary
 import com.example.myapplication.repository.DiaryRepository
 import com.example.myapplication.viewmodel.DiaryViewModel
@@ -111,11 +113,11 @@ class Setting : AppCompatActivity() {
             try {
                 for (diary in it) {
                     fw.append("${diary.idDiary}")
-                    fw.append(",")
-                    fw.append(diary.titleDiary)
-                    fw.append(",")
-                    fw.append(diary.contentDiary)
-                    fw.append(",")
+                    fw.append(KEY_SPACE)
+                    fw.append(diary.titleDiary.replace("\n".toRegex(),NEW_LINE))
+                    fw.append(KEY_SPACE)
+                    fw.append(diary.contentDiary.replace("\n".toRegex(),NEW_LINE))
+                    fw.append(KEY_SPACE)
                     fw.append(diary.dateDiary)
                     fw.append("\n")
                 }
@@ -166,10 +168,10 @@ class Setting : AppCompatActivity() {
             val bufferReader = BufferedReader(reader)
             var line = bufferReader.readLine()
             while (line != null) {
-                val arr: List<String> = line.split(",")
+                val arr: List<String> = line.split(KEY_SPACE)
                 if (arr.size < 5) {
-                    val titleDiary = arr[1]
-                    val contentDiary = arr[2]
+                    val titleDiary = arr[1].replace(NEW_LINE,"\n")
+                    val contentDiary = arr[2].replace(NEW_LINE,"\n")
                     val dateDiary = arr[3]
                     CoroutineScope(Dispatchers.IO).launch {
                         val id = diaryViewModel.insertDiary(
