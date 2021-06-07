@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout123"
+    tools:context=".fragment.MonthFragment">
+
+    <TextView
+        android:id="@+id/tv_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_32dp"
+        android:text="MAY"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tv_month"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <TextView
+        android:id="@+id/tv_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_8dp"
+        android:text="MAY"
+        android:textColor="@color/teal_700"
+        android:textSize="@dimen/dimen_32dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/tv_year"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_date"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_month">
+
+        <GridLayout
+            android:id="@+id/layout_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="7"
+            android:rowCount="1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text="Sun"
+                android:textColor="#F44336"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text="Mon"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text="Tue"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text="Wed"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text="Thu"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text="Fri"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text="Sat"
+                android:textSize="10sp" />
+
+        </GridLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lv_date"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_week" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
